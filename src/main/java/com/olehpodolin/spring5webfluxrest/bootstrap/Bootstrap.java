@@ -5,7 +5,9 @@ import com.olehpodolin.spring5webfluxrest.domain.Vendor;
 import com.olehpodolin.spring5webfluxrest.repositories.CategoryRepository;
 import com.olehpodolin.spring5webfluxrest.repositories.VendorRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Bootstrap implements CommandLineRunner {
 
     private VendorRepository vendorRepository;
@@ -19,30 +21,55 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        loadVendors();
-        loadCategories();
+        if (vendorRepository.count().block() == 0) {
+            //injecting data
+            System.out.println("Loading Vendors Initial Data from Bootstap class");
+            loadVendors();
+        }
+
+        if (categoryRepository.count().block() == 0) {
+            //injecting data
+            System.out.println("Loading Categories Initial Data from Bootstap class");
+            loadCategories();
+        }
+
     }
 
     private void loadVendors() {
 
-        Vendor vendor1 = new Vendor();
-        vendor1.setFirstName("Eric");
-        vendor1.setLastName("Covalenko");
+        vendorRepository.save(Vendor.builder()
+                .firstName("Jack")
+                .lastName("Bone").build()).block();
 
-        Vendor vendor2 = new Vendor();
-        vendor2.setFirstName("Jeff");
-        vendor2.setLastName("Jones");
+        vendorRepository.save(Vendor.builder()
+                .firstName("Nikki")
+                .lastName("Chuck").build()).block();
+
+        vendorRepository.save(Vendor.builder()
+                .firstName("Man")
+                .lastName("Marlboro").build()).block();
+
+        vendorRepository.save(Vendor.builder()
+                .firstName("Henry")
+                .lastName("Sharp").build()).block();
+
+        System.out.println("Loaded Vendors from Bootstrap class: " + vendorRepository.count().block());
     }
 
     private void loadCategories() {
 
-        Category category1 = new Category();
-        category1.setDescription("Tropical");
+        categoryRepository.save(Category.builder()
+                .description("Tropical").build()).block();
 
-        Category category2 = new Category();
-        category2.setDescription("Mexican");
+        categoryRepository.save(Category.builder()
+                .description("American").build()).block();
 
-        Category category3 = new Category();
-        category3.setDescription("American");
+        categoryRepository.save(Category.builder()
+                .description("European").build()).block();
+
+        categoryRepository.save(Category.builder()
+                .description("Slavic").build()).block();
+
+        System.out.println("Loaded Categories from Bootstrap class: " + categoryRepository.count().block());
     }
 }

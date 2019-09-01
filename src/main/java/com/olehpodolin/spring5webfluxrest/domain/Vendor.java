@@ -1,11 +1,14 @@
 package com.olehpodolin.spring5webfluxrest.domain;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vendor {
 
     @Id
