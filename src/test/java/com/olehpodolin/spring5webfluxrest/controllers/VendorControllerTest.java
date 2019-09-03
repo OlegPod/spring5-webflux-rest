@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
 public class VendorControllerTest {
 
@@ -30,7 +31,7 @@ public class VendorControllerTest {
 
     @Test
     public void getList() {
-        BDDMockito.given(vendorRepository.findAll())
+        given(vendorRepository.findAll())
                 .willReturn(Flux.just(Vendor.builder().firstName("Vendor1first").lastName("Vendor1last").build(),
                                                     Vendor.builder().firstName("Vendor2first").lastName("Vendor2last").build()));
 
@@ -43,7 +44,7 @@ public class VendorControllerTest {
 
     @Test
     public void getById() {
-        BDDMockito.given(vendorRepository.findById("id"))
+        given(vendorRepository.findById("id"))
                 .willReturn(Mono.just(Vendor.builder().firstName("VendorTest").lastName("lastForTest").build()));
 
         webTestClient.get()
@@ -54,7 +55,7 @@ public class VendorControllerTest {
 
     @Test
     public void createVendor() {
-        BDDMockito.given(vendorRepository.saveAll(any(Publisher.class)))
+        given(vendorRepository.saveAll(any(Publisher.class)))
                 .willReturn(Flux.just(Vendor.builder().build()));
 
         Flux<Vendor> vendorToSave = Flux.just(Vendor.builder().firstName("firstname").lastName("lastname").build());
@@ -76,7 +77,7 @@ public class VendorControllerTest {
                 .id("someId").build());
 
         //when
-        BDDMockito.given(vendorRepository.save(any(Vendor.class)))
+        given(vendorRepository.save(any(Vendor.class)))
                 .willReturn(updatedVendor);
 
         webTestClient.put()
