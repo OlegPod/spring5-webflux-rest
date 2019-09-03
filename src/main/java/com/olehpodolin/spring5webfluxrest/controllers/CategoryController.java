@@ -3,6 +3,7 @@ package com.olehpodolin.spring5webfluxrest.controllers;
 import com.olehpodolin.spring5webfluxrest.domain.Category;
 import com.olehpodolin.spring5webfluxrest.repositories.CategoryRepository;
 import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscriber;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -31,5 +32,11 @@ public class CategoryController {
     @PostMapping("/api/v1/categories")
     Mono<Void> createNewCategory(@RequestBody Publisher<Category> categoryStream) {
         return categoryRepository.saveAll(categoryStream).then();
+    }
+
+    @PutMapping("/api/v1/categories/{id}")
+    Mono<Category> updateCategory(@PathVariable String id, @RequestBody Category category) {
+        category.setId(id);
+        return categoryRepository.save(category);
     }
 }

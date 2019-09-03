@@ -64,4 +64,22 @@ public class CategoryControllerTest {
                 .expectStatus()
                 .isCreated();
     }
+
+    @Test
+    public void testUpdateCategory() {
+        //given
+        Mono<Category> categoryToUpdate = Mono.just(Category.builder().id("testId").description("Test Update").build());
+        Mono<Category> updatedCategory = Mono.just(Category.builder().id("testId").description("Updated Category").build());
+
+        //when
+        BDDMockito.given(categoryRepository.save(any(Category.class)))
+                .willReturn(updatedCategory);
+
+        webTestClient.put()
+                .uri("/api/v1/categories/testId")
+                .body(categoryToUpdate, Category.class)
+                .exchange()
+                .expectBody(Category.class)
+                .value(category -> category.getDescription().equals(updatedCategory.block().getDescription()));
+    }
 }
