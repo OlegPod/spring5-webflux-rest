@@ -3,7 +3,6 @@ package com.olehpodolin.spring5webfluxrest.controllers;
 import com.olehpodolin.spring5webfluxrest.domain.Category;
 import com.olehpodolin.spring5webfluxrest.repositories.CategoryRepository;
 import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
