@@ -112,7 +112,7 @@ public class VendorControllerTest {
     }
 
     @Test
-    public void testPatchVendorNoChanges() {
+    public void testPatchVendorWithoutChanges() {
         //given
         Mono<Vendor> vendorToUpdate = Mono.just(Vendor.builder().build());
 

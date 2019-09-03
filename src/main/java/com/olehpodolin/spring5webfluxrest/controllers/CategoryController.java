@@ -46,7 +46,7 @@ public class CategoryController {
 
         if (category.getDescription() != foundCategory.getDescription()) {
             foundCategory.setDescription(category.getDescription());
-            categoryRepository.save(foundCategory);
+            return  categoryRepository.save(foundCategory);
         }
 
         return Mono.just(foundCategory);

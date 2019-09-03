@@ -109,7 +109,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void testPatchCategoryNoChanges() {
+    public void testPatchCategoryWithoutChanges() {
         //given
         Mono<Category> categoryToPatch = Mono.just(Category.builder().build());
 

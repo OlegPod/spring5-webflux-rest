@@ -47,7 +47,7 @@ public class VendorController {
         if (foundVendor.getFirstName() != vendor.getFirstName() | foundVendor.getLastName() != vendor.getLastName()) {
             foundVendor.setFirstName(vendor.getFirstName());
             foundVendor.setLastName(vendor.getLastName());
-            vendorRepository.save(foundVendor);
+            return vendorRepository.save(foundVendor);
         }
 
         return Mono.just(foundVendor);
